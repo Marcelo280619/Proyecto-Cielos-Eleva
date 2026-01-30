@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --eleva-blue: #111a4a;
+  --eleva-blue-2:#1b2a78;
+  --eleva-brown:#8a5a2b;
+  --eleva-bg: #f7f8fb;
+}
+
+html, body { height: 100%; }
+body { background: var(--eleva-bg); }
