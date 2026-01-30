@@ -14,15 +14,15 @@ const Schema = z.object({
 
 export async function POST(req: Request) {
   try {
-    const me = getAuthFromCookie();
+    const me = await getAuthFromCookie(); // ← Agregado await
     if (!me) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-
+    
     const data = Schema.parse(await req.json());
-
+    
     const itemsHtml = data.items
       .map(i => `<li><b>${i.name}</b> (ID: ${i.productId}) — Cantidad: ${i.qty}</li>`)
       .join("");
-
+    
     await sendMail({
       subject: `Solicitud de Cotización - ${process.env.NEXT_PUBLIC_COMPANY_NAME || "ELEVA"}`,
       replyTo: me.email,
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         <ul>${itemsHtml}</ul>
       `,
     });
-
+    
     return NextResponse.json({ ok: true });
   } catch (e: any) {
     return NextResponse.json({ error: e?.message || "Error" }, { status: 400 });
