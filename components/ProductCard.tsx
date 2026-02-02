@@ -1,52 +1,67 @@
-"use client";
+import React from 'react';
+import './ProductCard.css';
 
-import Image from "next/image";
-import { useState } from "react";
-import type { Product } from "@/lib/data";
-
-function addToCart(productId: string) {
-  const raw = localStorage.getItem("eleva_cart");
-  const cart: Record<string, number> = raw ? JSON.parse(raw) : {};
-  cart[productId] = (cart[productId] || 0) + 1;
-  localStorage.setItem("eleva_cart", JSON.stringify(cart));
+interface ProductCardProps {
+  name: string;
+  price: number;
+  unit: string;
+  image: string;
+  inStock: boolean;
+  stock?: number;
 }
 
-export default function ProductCard({ product }: { product: Product }) {
-  const [added, setAdded] = useState(false);
-  const inStock = product.stock > 0;
+export default function ProductCard({ 
+  name, 
+  price, 
+  unit, 
+  image, 
+  inStock, 
+  stock 
+}: ProductCardProps) {
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP',
+      minimumFractionDigits: 0
+    }).format(price);
+  };
 
   return (
-    <div className="overflow-hidden rounded-2xl border bg-white shadow-sm">
-      <div className="relative h-44 w-full">
-        <Image src={product.image} alt={product.name} fill className="object-cover" />
-      </div>
-
-      <div className="p-4">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="font-bold">{product.name}</h3>
-          <span
-            className={`rounded-full px-2 py-1 text-xs font-semibold ${
-              inStock ? "bg-emerald-50 text-emerald-700" : "bg-rose-50 text-rose-700"
-            }`}
-          >
-            {inStock ? `Stock: ${product.stock}` : "Sin stock"}
-          </span>
-        </div>
-
-        <p className="mt-2 text-sm text-slate-600">{product.description}</p>
-
-        <button
-          disabled={!inStock}
-          onClick={() => {
-            addToCart(product.id);
-            setAdded(true);
-            setTimeout(() => setAdded(false), 900);
+    <div className="product-card">
+      <div className="product-image-container">
+        <img 
+          src={image} 
+          alt={name} 
+          className="product-image"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f0f0f0" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" fill="%23999" font-size="18" font-family="Arial"%3EImagen no disponible%3C/text%3E%3C/svg%3E';
           }}
-          className={`mt-4 w-full rounded-lg px-4 py-2 font-semibold ${
-            inStock ? "bg-[var(--eleva-blue)] text-white hover:opacity-95" : "bg-slate-200 text-slate-500"
-          }`}
+        />
+        {!inStock && (
+          <div className="out-of-stock-badge">Agotado</div>
+        )}
+      </div>
+      
+      <div className="product-info">
+        <h3 className="product-name">{name}</h3>
+        
+        <div className="product-pricing">
+          <span className="product-price">{formatPrice(price)}</span>
+          <span className="product-unit">/{unit}</span>
+        </div>
+        
+        {inStock && stock !== undefined && (
+          <div className="product-stock">
+            <span className="stock-badge">En Stock</span>
+            <span className="stock-count">{stock} un</span>
+          </div>
+        )}
+        
+        <button 
+          className={`add-to-cart-btn ${!inStock ? 'disabled' : ''}`}
+          disabled={!inStock}
         >
-          {added ? "Agregado ✅" : "Agregar al carrito"}
+          {inStock ? 'Agregar al carrito' : 'Próximamente'}
         </button>
       </div>
     </div>
