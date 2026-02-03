@@ -1,23 +1,16 @@
+'use client';
+
 import React from 'react';
 import './ProductCard.css';
+import { Product } from '@/lib/data';
 
 interface ProductCardProps {
-  name: string;
-  price: number;
-  unit: string;
-  image: string;
-  inStock: boolean;
-  stock?: number;
+  product: Product;
 }
 
-export default function ProductCard({ 
-  name, 
-  price, 
-  unit, 
-  image, 
-  inStock, 
-  stock 
-}: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
+  const { name, priceRef, image, stock } = product;
+  
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('es-CL', {
       style: 'currency',
@@ -25,6 +18,8 @@ export default function ProductCard({
       minimumFractionDigits: 0
     }).format(price);
   };
+
+  const inStock = stock > 0;
 
   return (
     <div className="product-card">
@@ -46,11 +41,13 @@ export default function ProductCard({
         <h3 className="product-name">{name}</h3>
         
         <div className="product-pricing">
-          <span className="product-price">{formatPrice(price)}</span>
-          <span className="product-unit">/{unit}</span>
+          <span className="product-price">
+            {priceRef ? formatPrice(priceRef) : 'Consultar'}
+          </span>
+          <span className="product-unit">/unidad</span>
         </div>
         
-        {inStock && stock !== undefined && (
+        {inStock && (
           <div className="product-stock">
             <span className="stock-badge">En Stock</span>
             <span className="stock-count">{stock} un</span>
