@@ -42,39 +42,58 @@ export default function ProjectCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const itemsPerView = 3;
+  // Calcular cuántos items mostrar según el ancho de pantalla
+  const getItemsPerView = () => {
+    if (typeof window === 'undefined') return 3;
+    if (window.innerWidth < 640) return 1;
+    if (window.innerWidth < 1024) return 2;
+    return 3;
+  };
+
+  const [itemsPerView, setItemsPerView] = useState(getItemsPerView());
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setItemsPerView(getItemsPerView());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const maxIndex = Math.max(0, projects.length - itemsPerView);
 
   const handlePrev = () => {
-    if (isTransitioning) return;
+    if (isTransitioning || currentIndex === 0) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => Math.max(0, prev - 1));
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const handleNext = () => {
-    if (isTransitioning) return;
+    if (isTransitioning || currentIndex >= maxIndex) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
   return (
-    <div className="relative">
+    <div className="relative px-12">
       {/* Contenedor del carrusel */}
       <div className="overflow-hidden">
         <div
           className="flex gap-6 transition-transform duration-300 ease-out"
           style={{
-            transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`
+            transform: `translateX(-${(currentIndex * 100) / itemsPerView}%)`
           }}
         >
           {projects.map((project) => (
             <div
               key={project.id}
-              className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3"
+              className="flex-shrink-0"
+              style={{ width: `calc(${100 / itemsPerView}% - ${(6 * (itemsPerView - 1)) / itemsPerView}px)` }}
             >
-              <div className="relative h-80 rounded-xl overflow-hidden group cursor-pointer shadow-lg">
+              <div className="relative h-80 rounded-xl overflow-hidden group cursor-pointer shadow-xl hover:shadow-2xl transition-shadow">
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -82,11 +101,11 @@ export default function ProjectCarousel() {
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%23cbd5e1"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="20" fill="%23475569"%3EProyecto%3C/text%3E%3C/svg%3E';
+                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%23cbd5e1"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="18" fill="%23475569"%3EProyecto%3C/text%3E%3C/svg%3E';
                   }}
                 />
                 {/* Overlay con gradiente */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-transparent" />
                 
                 {/* Texto sobre la imagen */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -99,20 +118,21 @@ export default function ProjectCarousel() {
         </div>
       </div>
 
-      {/* Botones de navegación */}
+      {/* Botón Anterior */}
       <button
         onClick={handlePrev}
         disabled={currentIndex === 0}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all z-10"
+        className="absolute left-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-all z-10 hover:scale-110"
         aria-label="Proyecto anterior"
       >
         <ChevronLeft className="w-6 h-6 text-slate-900" />
       </button>
 
+      {/* Botón Siguiente */}
       <button
         onClick={handleNext}
         disabled={currentIndex >= maxIndex}
-        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all z-10"
+        className="absolute right-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-all z-10 hover:scale-110"
         aria-label="Siguiente proyecto"
       >
         <ChevronRight className="w-6 h-6 text-slate-900" />
