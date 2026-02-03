@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Layers, Home, Wrench } from 'lucide-react';
@@ -9,6 +9,8 @@ import ServiceCard from '@/components/ServiceCard';
 import ProjectCarousel from '@/components/ProjectCarousel';
 
 export default function HomePage() {
+  const [imageError, setImageError] = useState(false);
+
   const services = [
     {
       icon: Layers,
@@ -68,21 +70,26 @@ export default function HomePage() {
 
   return (
     <main>
-      {/* Hero Section con imagen de fondo */}
+      {/* Hero Section */}
       <section className="relative h-[600px] md:h-[700px] overflow-hidden">
-        {/* Imagen de fondo usando Next.js Image */}
-        <Image
-          src="/img/hero-bg.jpg"
-          alt="Oficina moderna con cielos americanos"
-          fill
-          priority
-          quality={90}
-          className="object-cover"
-          sizes="100vw"
-        />
-        
-        {/* Overlay oscuro para mejorar legibilidad del texto */}
-        <div className="absolute inset-0 bg-black/50 z-10" />
+        {/* Fondo: Imagen o Gradiente de respaldo */}
+        {!imageError ? (
+          <>
+            <Image
+              src="/img/hero-bg.jpg"
+              alt="Oficina moderna con cielos americanos"
+              fill
+              priority
+              quality={90}
+              className="object-cover"
+              sizes="100vw"
+              onError={() => setImageError(true)}
+            />
+            <div className="absolute inset-0 bg-black/50 z-10" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-slate-800" />
+        )}
         
         {/* Contenido del Hero */}
         <div className="relative z-20 h-full flex items-center">
