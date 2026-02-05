@@ -26,6 +26,18 @@ const Navbar: React.FC = () => {
     { href: '#contacto', label: 'Contacto' }
   ];
 
+  // Función para scroll suave
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setIsMobileMenuOpen(false);
+      }
+    }
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -55,6 +67,7 @@ const Navbar: React.FC = () => {
               <li key={link.href}>
                 <Link
                   href={link.href}
+                  onClick={(e) => handleSmoothScroll(e, link.href)}
                   className="text-gray-700 hover:text-[#1e40af] font-medium transition-colors relative group"
                 >
                   {link.label}
@@ -65,6 +78,7 @@ const Navbar: React.FC = () => {
             <li>
               <Link
                 href="#contacto"
+                onClick={(e) => handleSmoothScroll(e, '#contacto')}
                 className="px-5 py-2 bg-[#d4a574] text-white rounded-lg font-semibold hover:bg-[#c89563] transition-colors shadow-md hover:shadow-lg"
               >
                 Cotizar
@@ -94,7 +108,10 @@ const Navbar: React.FC = () => {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      handleSmoothScroll(e, link.href);
+                      setIsMobileMenuOpen(false);
+                    }}
                     className="block text-gray-700 hover:text-[#1e40af] font-medium transition-colors py-2"
                   >
                     {link.label}
@@ -104,7 +121,10 @@ const Navbar: React.FC = () => {
               <li>
                 <Link
                   href="#contacto"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    handleSmoothScroll(e, '#contacto');
+                    setIsMobileMenuOpen(false);
+                  }}
                   className="block w-full text-center px-6 py-3 bg-[#d4a574] text-white rounded-lg font-semibold hover:bg-[#c89563] transition-colors"
                 >
                   Cotizar

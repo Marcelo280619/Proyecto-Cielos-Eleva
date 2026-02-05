@@ -77,14 +77,6 @@ body {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: var(--color-primary);
-}
-
 /* Animaciones */
 @keyframes fadeIn {
   from {
@@ -99,4 +91,22 @@ body {
 
 .fade-in {
   animation: fadeIn 0.6s ease-out;
+}
+
+/* Centrado específico solo para títulos y subtítulos de secciones */
+section > div > div.text-center h2,
+section > div > div.text-center p {
+  text-align: center !important;
+}
+
+#servicios h2,
+#proyectos h2,
+#productos h2 {
+  text-align: center !important;
+}
+
+#servicios p,
+#proyectos p,
+#productos p {
+  text-align: center !important;
 }
