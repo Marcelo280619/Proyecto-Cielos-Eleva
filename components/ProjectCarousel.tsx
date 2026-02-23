@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -13,36 +13,12 @@ interface Project {
 
 export default function ProjectCarousel() {
   const projects: Project[] = [
-    {
-      id: '1',
-      title: 'Edificio de Oficinas',
-      subtitle: 'Cielos Acústicos',
-      image: '/img/proyectos/proyecto-1.jpg'
-    },
-    {
-      id: '2',
-      title: 'Oficinas Corporativas',
-      subtitle: 'Cielos Americanos',
-      image: '/img/proyectos/proyecto-2.jpg'
-    },
-    {
-      id: '3',
-      title: 'Centro Comercial',
-      subtitle: 'Revestimientos',
-      image: '/img/proyectos/proyecto-3.jpg'
-    },
-    {
-      id: '4',
-      title: 'Espacios Modernos',
-      subtitle: 'Pisos y Cielos',
-      image: '/img/proyectos/proyecto-4.jpg'
-    }
+    { id: '1', title: 'Edificio de Oficinas', subtitle: 'Cielos Acústicos', image: '/img/proyectos/proyecto-1.jpg' },
+    { id: '2', title: 'Oficinas Corporativas', subtitle: 'Cielos Americanos', image: '/img/proyectos/proyecto-2.jpg' },
+    { id: '3', title: 'Centro Comercial', subtitle: 'Revestimientos', image: '/img/proyectos/proyecto-3.jpg' },
+    { id: '4', title: 'Espacios Modernos', subtitle: 'Pisos y Cielos', image: '/img/proyectos/proyecto-4.jpg' },
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  // Calcular cuántos items mostrar según el ancho de pantalla
   const getItemsPerView = () => {
     if (typeof window === 'undefined') return 3;
     if (window.innerWidth < 640) return 1;
@@ -50,67 +26,67 @@ export default function ProjectCarousel() {
     return 3;
   };
 
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(getItemsPerView());
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  React.useEffect(() => {
-    const handleResize = () => {
-      setItemsPerView(getItemsPerView());
-    };
-
+  useEffect(() => {
+    const handleResize = () => setItemsPerView(getItemsPerView());
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const maxIndex = Math.max(0, projects.length - itemsPerView);
 
-  const handlePrev = () => {
-    if (isTransitioning || currentIndex === 0) return;
+  const go = (dir: 'prev' | 'next') => {
+    if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
-    setTimeout(() => setIsTransitioning(false), 300);
+    setCurrentIndex((prev) =>
+      dir === 'prev' ? Math.max(0, prev - 1) : Math.min(maxIndex, prev + 1)
+    );
+    setTimeout(() => setIsTransitioning(false), 350);
   };
 
-  const handleNext = () => {
-    if (isTransitioning || currentIndex >= maxIndex) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
-    setTimeout(() => setIsTransitioning(false), 300);
-  };
+  const PLACEHOLDER =
+    'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%232d4a6e"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%2393a8c4"%3EProyecto%3C/text%3E%3C/svg%3E';
 
   return (
-    <div className="relative px-12">
-      {/* Contenedor del carrusel */}
-      <div className="overflow-hidden">
+    <div className="relative">
+      {/* Cards container */}
+      <div className="overflow-hidden rounded-2xl">
         <div
-          className="flex gap-6 transition-transform duration-300 ease-out"
+          className="flex gap-5 transition-transform duration-350 ease-out"
           style={{
-            transform: `translateX(-${(currentIndex * 100) / itemsPerView}%)`
+            transform: `translateX(calc(-${(currentIndex * 100) / itemsPerView}% - ${currentIndex * (20 / itemsPerView)}px))`,
           }}
         >
           {projects.map((project) => (
             <div
               key={project.id}
-              className="flex-shrink-0"
-              style={{ width: `calc(${100 / itemsPerView}% - ${(6 * (itemsPerView - 1)) / itemsPerView}px)` }}
+              className="shrink-0"
+              style={{ width: `calc(${100 / itemsPerView}% - ${(5 * (itemsPerView - 1)) / itemsPerView}px)` }}
             >
-              <div className="relative h-80 rounded-xl overflow-hidden group cursor-pointer shadow-xl hover:shadow-2xl transition-shadow">
+              <div className="relative h-72 md:h-80 rounded-2xl overflow-hidden group cursor-pointer">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                   onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%23cbd5e1"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="18" fill="%23475569"%3EProyecto%3C/text%3E%3C/svg%3E';
+                    (e.target as HTMLImageElement).src = PLACEHOLDER;
                   }}
                 />
-                {/* Overlay con gradiente */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-transparent" />
-                
-                {/* Texto sobre la imagen */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-1">{project.title}</h3>
-                  <p className="text-gray-300">{project.subtitle}</p>
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/30 to-transparent" />
+
+                {/* Info */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <p className="text-[#d4a574] text-xs font-bold uppercase tracking-widest mb-1.5">
+                    {project.subtitle}
+                  </p>
+                  <h3 className="text-white font-bold text-xl leading-snug">
+                    {project.title}
+                  </h3>
                 </div>
               </div>
             </div>
@@ -118,46 +94,44 @@ export default function ProjectCarousel() {
         </div>
       </div>
 
-      {/* Botón Anterior */}
-      <button
-        onClick={handlePrev}
-        disabled={currentIndex === 0}
-        className="absolute left-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-all z-10 hover:scale-110"
-        aria-label="Proyecto anterior"
-      >
-        <ChevronLeft className="w-6 h-6 text-slate-900" />
-      </button>
+      {/* Controls row */}
+      <div className="flex items-center justify-between mt-8">
+        {/* Dots */}
+        <div className="flex items-center gap-2">
+          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                if (!isTransitioning) {
+                  setIsTransitioning(true);
+                  setCurrentIndex(i);
+                  setTimeout(() => setIsTransitioning(false), 350);
+                }
+              }}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === currentIndex ? 'w-8 bg-[#d4a574]' : 'w-2 bg-white/30 hover:bg-white/60'
+              }`}
+            />
+          ))}
+        </div>
 
-      {/* Botón Siguiente */}
-      <button
-        onClick={handleNext}
-        disabled={currentIndex >= maxIndex}
-        className="absolute right-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-all z-10 hover:scale-110"
-        aria-label="Siguiente proyecto"
-      >
-        <ChevronRight className="w-6 h-6 text-slate-900" />
-      </button>
-
-      {/* Indicadores (dots) */}
-      <div className="flex justify-center gap-2 mt-8">
-        {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+        {/* Arrow buttons */}
+        <div className="flex items-center gap-2">
           <button
-            key={index}
-            onClick={() => {
-              if (!isTransitioning) {
-                setIsTransitioning(true);
-                setCurrentIndex(index);
-                setTimeout(() => setIsTransitioning(false), 300);
-              }
-            }}
-            className={`h-2 rounded-full transition-all ${
-              index === currentIndex
-                ? 'w-8 bg-white'
-                : 'w-2 bg-white/50 hover:bg-white/75'
-            }`}
-            aria-label={`Ir al grupo ${index + 1}`}
-          />
-        ))}
+            onClick={() => go('prev')}
+            disabled={currentIndex === 0}
+            className="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => go('next')}
+            disabled={currentIndex >= maxIndex}
+            className="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
       </div>
     </div>
   );
