@@ -78,8 +78,8 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
     }
   };
 
-  const inputClass = "w-full bg-[#1a2d5a]/60 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#d4a574]/60 focus:bg-[#1a2d5a] transition-all text-sm";
-  const labelClass = "block text-xs font-bold uppercase tracking-widest text-[#d4a574] mb-2";
+  const inputClass = "w-full bg-[#1a2d5a]/80 border border-white/15 rounded-lg px-5 py-4 text-white placeholder-slate-500 focus:outline-none focus:border-[#d4a574]/70 focus:bg-[#1a2d5a] transition-all text-base";
+  const labelClass = "block text-xs font-bold uppercase tracking-widest text-[#d4a574] mb-3";
 
   const radioClass = (active: boolean) =>
     `flex items-center gap-3 cursor-pointer px-5 py-3 rounded-xl border transition-all ${
@@ -90,14 +90,14 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
 
   if (sent) {
     return (
-      <main className="min-h-screen bg-[#0f1e3d] flex items-center justify-center px-6">
-        <div className="text-center max-w-lg">
-          <div className="w-28 h-28 bg-[#d4a574]/10 border-2 border-[#d4a574]/40 rounded-full flex items-center justify-center mx-auto mb-8">
+      <main className="min-h-screen bg-[#0f1e3d] flex items-center justify-center px-6" style={{ paddingTop: '80px' }}>
+        <div style={{ maxWidth: '512px', textAlign: 'center' }}>
+          <div className="w-28 h-28 bg-[#d4a574]/10 border-2 border-[#d4a574]/40 rounded-full flex items-center justify-center mb-8" style={{ margin: '0 auto 32px' }}>
             <svg className="w-14 h-14 text-[#d4a574]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <div className="w-20 h-1 bg-[#d4a574] mx-auto rounded-full mb-8" />
+          <div className="w-20 h-1 bg-[#d4a574] rounded-full mb-8" style={{ margin: '0 auto 32px' }} />
           <h2 className="text-4xl font-black text-white mb-4">¡Solicitud enviada!</h2>
           <p className="text-slate-400 text-lg mb-10 leading-relaxed">
             Recibimos tu formulario. Nuestro equipo técnico coordinará la visita contigo a la brevedad.
@@ -112,32 +112,35 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
   }
 
   return (
-    <main className="min-h-screen bg-[#0f1e3d]" style={{ paddingBottom: '80px' }}>
+    <main className="min-h-screen bg-[#0f1e3d] w-full" style={{ paddingBottom: '80px' }}>
 
       {/* Hero header */}
-      <div className="bg-gradient-to-b from-[#0a1628] to-[#0f1e3d] pt-12 pb-16 px-6 text-center border-b border-white/5">
-        <button onClick={onBack}
-          className="inline-flex items-center gap-2 text-slate-500 hover:text-[#d4a574] mb-10 transition-colors text-sm font-medium">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Volver
-        </button>
+      <div className="w-full bg-gradient-to-b from-[#0a1628] to-[#0f1e3d] border-b border-white/5" style={{ paddingTop: '120px', paddingBottom: '60px' }}>
+        <div style={{ maxWidth: '896px', margin: '0 auto', padding: '0 32px' }} className="flex flex-col items-center text-center">
+          <button onClick={onBack}
+            className="self-start inline-flex items-center gap-2 text-slate-500 hover:text-[#d4a574] mb-10 transition-colors text-sm font-medium">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Volver
+          </button>
 
-        <div className="inline-flex items-center gap-2 bg-[#d4a574]/15 border border-[#d4a574]/30 rounded-full px-5 py-2 mb-6">
-          <span className="text-[#d4a574] text-xs font-bold uppercase tracking-widest">Visita a Terreno</span>
+          <div className="inline-flex items-center gap-2 bg-[#d4a574]/15 border border-[#d4a574]/30 rounded-full px-5 py-2 mb-6">
+            <span className="text-[#d4a574] text-xs font-bold uppercase tracking-widest">Visita a Terreno</span>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl font-black text-white mb-4 leading-tight">
+            Solicitar <span className="text-[#d4a574]">Visita Técnica</span>
+          </h1>
+          <p className="text-slate-400 text-lg" style={{ maxWidth: '576px' }}>
+            Completa el formulario y coordinaremos una visita a tu obra a la brevedad.
+          </p>
+          <div className="w-20 h-1 bg-[#d4a574] rounded-full mt-8" />
         </div>
-
-        <h1 className="text-4xl md:text-6xl font-black text-white mb-4 leading-tight">
-          Solicitar <span className="text-[#d4a574]">Visita Técnica</span>
-        </h1>
-        <p className="text-slate-400 text-lg max-w-xl mx-auto">
-          Completa el formulario y coordinaremos una visita a tu obra a la brevedad.
-        </p>
-        <div className="w-20 h-1 bg-[#d4a574] mx-auto rounded-full mt-8" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 py-16">
+      {/* Formulario */}
+      <div style={{ maxWidth: '896px', margin: '0 auto', padding: '60px 32px' }}>
 
         {/* Progress Steps */}
         <div className="flex items-center gap-0 mb-12 bg-white/[0.03] border border-white/10 rounded-2xl p-2">
@@ -177,8 +180,8 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
 
           {/* STEP 1 */}
           {step === 1 && (
-            <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10 space-y-6">
-              <div className="flex items-center gap-4 mb-4">
+            <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-12 space-y-8">
+              <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-2xl bg-[#d4a574] flex items-center justify-center shrink-0">
                   <span className="text-white font-black text-base">1</span>
                 </div>
@@ -188,7 +191,7 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-8">
                 <div className="md:col-span-2">
                   <label className={labelClass}>Nombre Empresa o Cliente <span className="text-[#d4a574] normal-case">*</span></label>
                   <input required className={inputClass} placeholder="Ej: Constructora XYZ"
@@ -237,8 +240,8 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
 
           {/* STEP 2 */}
           {step === 2 && (
-            <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10 space-y-6">
-              <div className="flex items-center gap-4 mb-4">
+            <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-12 space-y-8">
+              <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-2xl bg-[#d4a574] flex items-center justify-center shrink-0">
                   <span className="text-white font-black text-base">2</span>
                 </div>
@@ -269,7 +272,7 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <label className={labelClass}>Otros Servicios / Productos</label>
                   <input className={inputClass} placeholder="Revestimientos, pisos, etc."
@@ -282,7 +285,7 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6 border-t border-white/10 pt-6">
+              <div className="grid md:grid-cols-2 gap-8 border-t border-white/10 pt-6">
                 {[
                   { label: "¿Desarme de Cielo Existente?", key: "desarme" },
                   { label: "¿Retiro de Escombros?", key: "retiroEscombros" },
@@ -304,7 +307,7 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
                 ))}
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-3 gap-8">
                 <div>
                   <label className={labelClass}>Fecha de Instalación</label>
                   <input type="date" className={inputClass}
@@ -326,8 +329,8 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
 
           {/* STEP 3 */}
           {step === 3 && (
-            <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10 space-y-6">
-              <div className="flex items-center gap-4 mb-4">
+            <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-12 space-y-8">
+              <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-2xl bg-[#d4a574] flex items-center justify-center shrink-0">
                   <span className="text-white font-black text-base">3</span>
                 </div>
@@ -337,7 +340,6 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
                 </div>
               </div>
 
-              {/* Tabla header */}
               <div className="hidden md:grid grid-cols-12 gap-3 px-1">
                 {[
                   { label: "Recinto / Sector", span: "col-span-4" },
@@ -351,24 +353,24 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
                 ))}
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {recintos.map((r) => (
-                  <div key={r.id} className="bg-[#1a2d5a]/40 border border-white/[0.07] rounded-2xl p-4">
+                  <div key={r.id} className="bg-[#1a2d5a]/40 border border-white/[0.07] rounded-2xl p-5">
                     <div className="grid md:grid-cols-12 grid-cols-2 gap-3 items-center">
                       <div className="col-span-2 md:col-span-4">
                         <input placeholder="Ej: Sala de reuniones" value={r.recinto}
                           onChange={e => updateRecinto(r.id, "recinto", e.target.value)}
-                          className="w-full bg-[#0f1e3d] border border-white/10 rounded-xl px-3 py-3 text-white text-sm placeholder-slate-600 focus:outline-none focus:border-[#d4a574]/50" />
+                          className="w-full bg-[#0f1e3d] border border-white/15 rounded-lg px-4 py-4 text-white text-base placeholder-slate-600 focus:outline-none focus:border-[#d4a574]/50" />
                       </div>
                       <div className="md:col-span-1 text-center">
                         <input type="number" min="0" step="0.01" placeholder="0.00" value={r.largo}
                           onChange={e => updateRecinto(r.id, "largo", e.target.value)}
-                          className="w-full bg-[#0f1e3d] border border-white/10 rounded-xl px-3 py-3 text-white text-sm text-center placeholder-slate-600 focus:outline-none focus:border-[#d4a574]/50" />
+                          className="w-full bg-[#0f1e3d] border border-white/15 rounded-lg px-3 py-4 text-white text-base text-center placeholder-slate-600 focus:outline-none focus:border-[#d4a574]/50" />
                       </div>
                       <div className="md:col-span-1 text-center">
                         <input type="number" min="0" step="0.01" placeholder="0.00" value={r.ancho}
                           onChange={e => updateRecinto(r.id, "ancho", e.target.value)}
-                          className="w-full bg-[#0f1e3d] border border-white/10 rounded-xl px-3 py-3 text-white text-sm text-center placeholder-slate-600 focus:outline-none focus:border-[#d4a574]/50" />
+                          className="w-full bg-[#0f1e3d] border border-white/15 rounded-lg px-3 py-4 text-white text-base text-center placeholder-slate-600 focus:outline-none focus:border-[#d4a574]/50" />
                       </div>
                       <div className="md:col-span-1 text-center">
                         <span className="text-[#d4a574] font-black text-sm">{calcM2(r)}</span>
@@ -376,7 +378,7 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
                       <div className="col-span-2 md:col-span-4 flex gap-2">
                         <input placeholder="Observaciones..." value={r.observaciones}
                           onChange={e => updateRecinto(r.id, "observaciones", e.target.value)}
-                          className="flex-1 bg-[#0f1e3d] border border-white/10 rounded-xl px-3 py-3 text-white text-sm placeholder-slate-600 focus:outline-none focus:border-[#d4a574]/50" />
+                          className="flex-1 bg-[#0f1e3d] border border-white/15 rounded-lg px-4 py-4 text-white text-base placeholder-slate-600 focus:outline-none focus:border-[#d4a574]/50" />
                         {recintos.length > 1 && (
                           <button type="button" onClick={() => removeRecinto(r.id)}
                             className="w-10 h-10 rounded-xl bg-red-500/10 hover:bg-red-500/20 flex items-center justify-center text-red-400/60 hover:text-red-400 transition-all shrink-0">
@@ -408,7 +410,7 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
                 </div>
               </div>
 
-              <div className="border-t border-white/10 pt-6 grid md:grid-cols-3 gap-6">
+              <div className="border-t border-white/10 pt-6 grid md:grid-cols-3 gap-8">
                 <div>
                   <label className={labelClass}>Tipo de Muros</label>
                   <input className={inputClass} placeholder="Ej: Tabique yeso..."
@@ -430,8 +432,8 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
 
           {/* STEP 4 */}
           {step === 4 && (
-            <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10 space-y-6">
-              <div className="flex items-center gap-4 mb-4">
+            <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-12 space-y-8">
+              <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-2xl bg-[#d4a574] flex items-center justify-center shrink-0">
                   <span className="text-white font-black text-base">4</span>
                 </div>
@@ -441,7 +443,7 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-8">
                 {[
                   { label: "¿Planos de Cielo disponibles?", key: "planosCielo" },
                   { label: "¿Plano de Luminaria disponible?", key: "planosLuminaria" },
@@ -463,7 +465,7 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
                 ))}
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {[
                   { label: "¿Restricción de Horario?", key: "restriccionHorario", obsKey: "obsHorario", obsPlaceholder: "Describe la restricción de horario..." },
                   { label: "¿Restricción de Ruido?", key: "restriccionRuido", obsKey: "obsRuido", obsPlaceholder: "Describe la restricción de ruido..." },
@@ -509,7 +511,7 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
           )}
 
           {/* Navegación */}
-          <div className="flex justify-between mt-8 gap-4">
+          <div className="flex justify-between mt-10 gap-4">
             {step > 1 ? (
               <button type="button" onClick={() => setStep(s => s - 1)}
                 className="flex items-center gap-2 text-slate-400 hover:text-white border border-white/10 hover:border-[#d4a574]/30 bg-white/[0.03] hover:bg-white/[0.07] px-7 py-4 rounded-2xl transition-all text-sm font-bold">
@@ -529,15 +531,10 @@ export default function QuoteVisita({ onBack }: { onBack: () => void }) {
                 </svg>
               </button>
             ) : (
-              <>
-                <div className="flex justify-center w-full">
-                  <div className="w-32 h-1 bg-[#d4a574] rounded-full mb-0" />
-                </div>
-                <button type="submit" disabled={loading}
-                  className="flex items-center gap-2 bg-[#d4a574] hover:bg-[#c89563] disabled:opacity-50 text-white font-black px-12 py-4 rounded-2xl transition-all hover:shadow-lg hover:shadow-amber-900/30 hover:-translate-y-0.5 text-base">
-                  {loading ? "Enviando..." : "Enviar Solicitud →"}
-                </button>
-              </>
+              <button type="submit" disabled={loading}
+                className="flex items-center gap-2 bg-[#d4a574] hover:bg-[#c89563] disabled:opacity-50 text-white font-black px-12 py-4 rounded-2xl transition-all hover:shadow-lg hover:shadow-amber-900/30 hover:-translate-y-0.5 text-base">
+                {loading ? "Enviando..." : "Enviar Solicitud →"}
+              </button>
             )}
           </div>
         </form>

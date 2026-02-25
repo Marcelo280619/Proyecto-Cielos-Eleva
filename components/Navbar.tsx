@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
           : 'bg-white/95 backdrop-blur-sm py-3.5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 40px' }}>
         <div className="flex items-center justify-between">
 
           {/* Logo */}
@@ -73,13 +73,37 @@ const Navbar: React.FC = () => {
             ))}
           </ul>
 
-          {/* CTA Button */}
+          {/* CTA Button mejorado */}
           <div className="hidden md:flex items-center gap-3">
             <Link
               href="/quote"
-              className="px-5 py-2.5 bg-[#d4a574] hover:bg-[#c89563] text-white rounded-xl font-semibold text-sm transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-amber-200 hover:-translate-y-0.5"
+              style={{
+                background: 'linear-gradient(135deg, #d4a574 0%, #c89563 100%)',
+                padding: '10px 24px',
+                borderRadius: '12px',
+                color: 'white',
+                fontWeight: '700',
+                fontSize: '14px',
+                letterSpacing: '0.02em',
+                boxShadow: '0 4px 14px rgba(212,165,116,0.4)',
+                transition: 'all 0.2s ease',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(212,165,116,0.5)';
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 14px rgba(212,165,116,0.4)';
+              }}
             >
-              Cotizar
+              <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              Cotizar ahora
             </Link>
           </div>
 
@@ -115,9 +139,9 @@ const Navbar: React.FC = () => {
                 <Link
                   href="/quote"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block text-center px-6 py-3 bg-[#d4a574] text-white rounded-xl font-semibold hover:bg-[#c89563] transition-colors text-sm"
+                  className="block text-center px-6 py-3 bg-[#d4a574] text-white rounded-xl font-bold hover:bg-[#c89563] transition-colors text-sm"
                 >
-                  Cotizar
+                  Cotizar ahora
                 </Link>
               </li>
             </ul>

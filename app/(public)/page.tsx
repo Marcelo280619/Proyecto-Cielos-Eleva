@@ -29,6 +29,8 @@ export default function HomePage() {
   const PLACEHOLDER = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="400"%3E%3Crect width="400" height="400" fill="%23f1f5f9"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="%2394a3b8"%3EProducto%3C/text%3E%3C/svg%3E';
   const filteredProductos = activeFilter === 'Todos' ? productos : productos.filter(p => p.category === activeFilter);
 
+  const containerStyle = { maxWidth: '1280px', margin: '0 auto', padding: '0 64px' };
+
   return (
     <main className="pt-16" style={{ overflowX: 'hidden' }}>
 
@@ -45,9 +47,9 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-br from-[#0f2151] via-[#1e3a8a] to-slate-800" />
         )}
 
-        <div className="relative z-20 w-full max-w-7xl mx-auto px-8 lg:px-16 py-36">
+        <div className="relative z-20 w-full" style={{ ...containerStyle, paddingTop: '144px', paddingBottom: '144px' }}>
           <div className="flex items-center justify-between gap-16">
-            <div className="max-w-2xl">
+            <div style={{ maxWidth: '672px' }}>
               <div className="inline-flex items-center gap-2 bg-[#d4a574]/15 border border-[#d4a574]/30 rounded-full px-4 py-2 mb-10">
                 <Star className="w-3 h-3 text-[#d4a574]" fill="currentColor" />
                 <span className="text-[#d4a574] text-sm font-bold uppercase tracking-widest">Expertos en cielos y revestimientos</span>
@@ -58,7 +60,7 @@ export default function HomePage() {
                 <span className="text-[#d4a574]">Y CIELOS</span>
               </h1>
 
-              <p className="text-lg text-slate-300 mb-12 leading-relaxed max-w-lg">
+              <p className="text-lg text-slate-300 mb-12 leading-relaxed" style={{ maxWidth: '512px' }}>
                 Expertos en instalación y venta de cielos falsos, revestimientos y pisos para todo tipo de proyectos.
               </p>
 
@@ -89,7 +91,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Separador dorado */}
         <div className="absolute bottom-0 left-0 right-0 z-20 flex justify-center pb-8">
           <div className="w-32 h-1.5 bg-[#d4a574] rounded-full" />
         </div>
@@ -97,12 +98,12 @@ export default function HomePage() {
 
       {/* ── SERVICIOS ── */}
       <section id="servicios" className="bg-slate-50" style={{ padding: '120px 0 140px' }}>
-        <div className="max-w-7xl mx-auto px-8 lg:px-16">
+        <div style={containerStyle}>
 
           <div className="text-center mb-24">
             <p className="text-[#d4a574] font-bold uppercase tracking-widest text-base mb-5">Lo que hacemos</p>
             <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-8">Nuestros Servicios</h2>
-            <div className="w-32 h-1.5 bg-[#d4a574] mx-auto rounded-full" />
+            <div className="w-32 h-1.5 bg-[#d4a574] rounded-full" style={{ margin: '0 auto' }} />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -110,7 +111,7 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-16">
-            <Link href="/servicios" className="inline-flex items-center gap-2 text-[#1e3a8a] font-bold text-base hover:gap-4 transition-all">
+            <Link href="/servicios" className="inline-flex items-center gap-3 bg-white border-2 border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white font-bold text-base px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-blue-900/20 hover:-translate-y-0.5">
               Ver todos los servicios <ChevronRight className="w-5 h-5" />
             </Link>
           </div>
@@ -123,13 +124,13 @@ export default function HomePage() {
 
       {/* ── PROYECTOS ── */}
       <section id="proyectos" className="bg-[#1e3a5f]" style={{ padding: '120px 0 140px' }}>
-        <div className="max-w-7xl mx-auto px-8 lg:px-16">
+        <div style={containerStyle}>
 
           <div className="text-center mb-24">
             <p className="text-[#d4a574] font-bold uppercase tracking-widest text-base mb-5">Nuestro portafolio</p>
             <h2 className="text-4xl md:text-5xl font-black text-white mb-5">Trabajos Realizados</h2>
-            <p className="text-slate-400 text-base max-w-md mx-auto leading-relaxed mb-8">Proyectos destacados en cielos, revestimientos y pisos.</p>
-            <div className="w-32 h-1.5 bg-[#d4a574] mx-auto rounded-full" />
+            <p className="text-slate-400 text-base leading-relaxed mb-8" style={{ maxWidth: '448px', margin: '0 auto 32px' }}>Proyectos destacados en cielos, revestimientos y pisos.</p>
+            <div className="w-32 h-1.5 bg-[#d4a574] rounded-full" style={{ margin: '0 auto' }} />
           </div>
 
           <ProjectCarousel />
@@ -148,13 +149,13 @@ export default function HomePage() {
 
       {/* ── PRODUCTOS ── */}
       <section id="productos" className="bg-white" style={{ padding: '120px 0 140px' }}>
-        <div className="max-w-7xl mx-auto px-8 lg:px-16">
+        <div style={containerStyle}>
 
           <div className="text-center mb-16">
             <p className="text-[#d4a574] font-bold uppercase tracking-widest text-base mb-5">Catálogo</p>
             <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">Nuestros Productos</h2>
             <p className="text-slate-500 text-base mb-8">Cielos americanos, revestimientos y pisos de alta calidad.</p>
-            <div className="w-32 h-1.5 bg-[#d4a574] mx-auto rounded-full" />
+            <div className="w-32 h-1.5 bg-[#d4a574] rounded-full" style={{ margin: '0 auto' }} />
           </div>
 
           <div className="flex gap-3 mb-14 flex-wrap justify-center">
@@ -222,13 +223,13 @@ export default function HomePage() {
       {/* ── CTA ── */}
       <section className="bg-slate-950 relative overflow-hidden" style={{ padding: '120px 0' }}>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(212,165,116,0.12),transparent)]" />
-        <div className="relative z-10 max-w-3xl mx-auto px-8 text-center">
+        <div className="relative z-10 text-center" style={{ maxWidth: '768px', margin: '0 auto', padding: '0 32px' }}>
           <p className="text-[#d4a574] font-bold uppercase tracking-widest text-base mb-6">¿Listo para comenzar?</p>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
             Transforma tu espacio<br /><span className="text-[#d4a574]">con ELEVA</span>
           </h2>
-          <div className="w-32 h-1.5 bg-[#d4a574] mx-auto rounded-full mb-10" />
-          <p className="text-slate-400 text-base mb-14 max-w-md mx-auto leading-relaxed">
+          <div className="w-32 h-1.5 bg-[#d4a574] rounded-full mb-10" style={{ margin: '0 auto 40px' }} />
+          <p className="text-slate-400 text-base mb-14 leading-relaxed" style={{ maxWidth: '448px', margin: '0 auto 56px' }}>
             Contáctanos y recibe una cotización personalizada para tu proyecto.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">

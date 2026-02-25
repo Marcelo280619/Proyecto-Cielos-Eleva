@@ -12,36 +12,35 @@ export default function QuotePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900">
-      <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
+      <div className="min-h-screen flex flex-col items-center justify-center px-4" style={{ paddingTop: '100px', paddingBottom: '80px' }}>
 
         {/* Header */}
-        <div className="text-center mb-16 w-full max-w-3xl">
-          <p className="text-amber-400 uppercase tracking-[0.35em] text-xs font-bold mb-5">
+        <div className="text-center mb-20" style={{ maxWidth: '768px', width: '100%' }}>
+          <p className="text-amber-400 uppercase tracking-[0.35em] text-xs font-bold mb-6">
             ELEVA Construcciones
           </p>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-[1.05]">
+          <h1 className="text-5xl md:text-7xl font-black text-white mb-8 leading-[1.05]">
             ¿Qué tipo de
             <br />
             <span className="text-amber-400">cotización</span> necesitas?
           </h1>
-          <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-xl mx-auto">
+          <p className="text-slate-400 text-lg md:text-xl leading-relaxed" style={{ maxWidth: '520px', margin: '0 auto' }}>
             Selecciona la opción que mejor se adapta a tu proyecto y te ayudamos a obtener el mejor presupuesto.
           </p>
         </div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-2 gap-5 w-full max-w-5xl">
+        <div className="grid md:grid-cols-2 gap-6" style={{ maxWidth: '1024px', width: '100%' }}>
 
           {/* Opción 1: Productos */}
           <button
             onClick={() => setSelected("products")}
-            className="group relative bg-white/[0.04] border border-white/10 rounded-3xl p-10 text-left hover:bg-white/[0.08] hover:border-amber-400/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_30px_60px_-10px_rgba(251,191,36,0.15)] flex flex-col"
+            className="group relative bg-white/[0.04] border border-white/10 rounded-3xl text-left hover:bg-white/[0.08] hover:border-amber-400/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_30px_60px_-10px_rgba(251,191,36,0.15)] flex flex-col"
+            style={{ padding: '40px' }}
           >
-            {/* Glow */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-amber-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Badge */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-10">
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-amber-400/80 bg-amber-400/10 border border-amber-400/20 px-3 py-1.5 rounded-full">
                 Opción 1
               </span>
@@ -53,14 +52,14 @@ export default function QuotePage() {
               </div>
             </div>
 
-            <h2 className="text-3xl font-bold text-white mb-3 leading-tight">
+            <h2 className="text-3xl font-bold text-white mb-4 leading-tight">
               Cotización de<br />Productos
             </h2>
-            <p className="text-slate-400 text-base leading-relaxed mb-8">
+            <p className="text-slate-400 text-base leading-relaxed mb-10">
               Cotiza directamente desde nuestro catálogo. Ideal si ya sabes qué productos necesitas para tu proyecto.
             </p>
 
-            <ul className="space-y-3 mb-10 flex-1">
+            <ul className="space-y-4 mb-12 flex-1">
               {[
                 "Cielos americanos y falsos",
                 "Revestimientos y pisos",
@@ -91,13 +90,12 @@ export default function QuotePage() {
           {/* Opción 2: Visita a Terreno */}
           <button
             onClick={() => setSelected("visita")}
-            className="group relative bg-white/[0.04] border border-white/10 rounded-3xl p-10 text-left hover:bg-white/[0.08] hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_30px_60px_-10px_rgba(96,165,250,0.15)] flex flex-col"
+            className="group relative bg-white/[0.04] border border-white/10 rounded-3xl text-left hover:bg-white/[0.08] hover:border-blue-400/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_30px_60px_-10px_rgba(96,165,250,0.15)] flex flex-col"
+            style={{ padding: '40px' }}
           >
-            {/* Glow */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Badge */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-10">
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-400/80 bg-blue-400/10 border border-blue-400/20 px-3 py-1.5 rounded-full">
                 Opción 2
               </span>
@@ -109,14 +107,14 @@ export default function QuotePage() {
               </div>
             </div>
 
-            <h2 className="text-3xl font-bold text-white mb-3 leading-tight">
+            <h2 className="text-3xl font-bold text-white mb-4 leading-tight">
               Visita a<br />Terreno
             </h2>
-            <p className="text-slate-400 text-base leading-relaxed mb-8">
+            <p className="text-slate-400 text-base leading-relaxed mb-10">
               Agenda una visita técnica a tu obra para una cotización precisa y personalizada según tus necesidades reales.
             </p>
 
-            <ul className="space-y-3 mb-10 flex-1">
+            <ul className="space-y-4 mb-12 flex-1">
               {[
                 "Evaluación técnica en sitio",
                 "Medición de recintos y sectores",
@@ -146,9 +144,9 @@ export default function QuotePage() {
         </div>
 
         {/* Footer */}
-        <p className="text-slate-600 text-sm mt-12">
+        <p className="text-slate-600 text-sm mt-14">
           ¿Tienes dudas?{" "}
-          <a href="/contact" className="text-slate-400 hover:text-amber-400 transition-colors underline underline-offset-4">
+          <a href="/contacto" className="text-slate-400 hover:text-amber-400 transition-colors underline underline-offset-4">
             Contáctanos directamente
           </a>
         </p>
