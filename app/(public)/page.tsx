@@ -65,10 +65,10 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <Link href="/contacto" className="inline-flex items-center gap-2 bg-[#d4a574] hover:bg-[#c89563] text-white font-bold px-8 py-4 rounded-xl transition-all hover:shadow-[0_8px_30px_-4px_rgba(212,165,116,0.5)] hover:-translate-y-0.5">
+                <Link href="/contacto" className="inline-flex items-center gap-2 bg-[#d4a574] hover:bg-[#c89563] text-white font-bold uppercase tracking-widest px-8 py-4 transition-all hover:shadow-[0_8px_30px_-4px_rgba(212,165,116,0.5)] hover:-translate-y-0.5 text-sm" style={{ borderRadius: '9999px' }}>
                   Contáctanos
                 </Link>
-                <Link href="/proyectos" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-all backdrop-blur-sm">
+                <Link href="/proyectos" className="inline-flex items-center gap-2 bg-transparent hover:bg-white text-white hover:text-slate-900 font-bold uppercase tracking-widest px-8 py-4 transition-all text-sm" style={{ border: '2px solid rgba(255,255,255,0.4)', borderRadius: '9999px' }}>
                   Ver Proyectos <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -111,8 +111,8 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-16">
-            <Link href="/servicios" className="inline-flex items-center gap-3 bg-white border-2 border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white font-bold text-base px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-blue-900/20 hover:-translate-y-0.5">
-              Ver todos los servicios <ChevronRight className="w-5 h-5" />
+            <Link href="/servicios" className="inline-flex items-center gap-3 bg-transparent hover:bg-slate-900 text-slate-900 hover:text-white font-bold uppercase tracking-widest text-sm transition-all duration-200 hover:-translate-y-0.5" style={{ border: '2px solid #1e3a8a', borderRadius: '9999px', padding: '14px 36px' }}>
+              Ver todos los servicios <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -136,8 +136,8 @@ export default function HomePage() {
           <ProjectCarousel />
 
           <div className="text-center mt-16">
-            <Link href="/proyectos" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-bold px-8 py-4 rounded-xl transition-all text-base">
-              Ver todos los proyectos <ChevronRight className="w-5 h-5" />
+            <Link href="/proyectos" className="inline-flex items-center gap-3 bg-transparent hover:bg-white text-white hover:text-[#1e3a5f] font-bold uppercase tracking-widest text-sm transition-all duration-200 hover:-translate-y-0.5" style={{ border: '2px solid rgba(255,255,255,0.6)', borderRadius: '9999px', padding: '14px 36px' }}>
+              Ver todos los proyectos <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -209,8 +209,8 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-16">
-            <Link href="/productos" className="inline-flex items-center gap-2 bg-[#1e3a8a] hover:bg-[#1e40af] text-white font-bold px-10 py-4 rounded-xl transition-all text-base hover:shadow-lg hover:shadow-blue-900/25">
-              Ver catálogo completo <ChevronRight className="w-5 h-5" />
+            <Link href="/productos" className="inline-flex items-center gap-3 bg-transparent hover:bg-slate-900 text-slate-900 hover:text-white font-bold uppercase tracking-widest text-sm transition-all duration-200 hover:-translate-y-0.5" style={{ border: '2px solid #1e3a8a', borderRadius: '9999px', padding: '14px 36px' }}>
+              Ver catálogo completo <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -233,10 +233,10 @@ export default function HomePage() {
             Contáctanos y recibe una cotización personalizada para tu proyecto.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/quote" className="inline-flex items-center gap-2 bg-[#d4a574] hover:bg-[#c89563] text-white font-bold px-10 py-4 rounded-xl transition-all hover:shadow-[0_8px_30px_-4px_rgba(212,165,116,0.4)] hover:-translate-y-0.5 text-base">
+            <Link href="/quote" className="inline-flex items-center gap-2 bg-[#d4a574] hover:bg-[#c89563] text-white font-bold uppercase tracking-widest px-10 py-4 transition-all hover:shadow-[0_8px_30px_-4px_rgba(212,165,116,0.4)] hover:-translate-y-0.5 text-sm" style={{ borderRadius: '9999px' }}>
               Solicitar Cotización
             </Link>
-            <Link href="/contacto" className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 text-white font-semibold px-10 py-4 rounded-xl transition-all hover:bg-white/5 text-base">
+            <Link href="/contacto" className="inline-flex items-center gap-2 bg-transparent hover:bg-white text-white hover:text-slate-950 font-bold uppercase tracking-widest px-10 py-4 transition-all hover:-translate-y-0.5 text-sm" style={{ border: '2px solid rgba(255,255,255,0.5)', borderRadius: '9999px' }}>
               Contactar directamente
             </Link>
           </div>
