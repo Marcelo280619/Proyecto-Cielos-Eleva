@@ -68,15 +68,23 @@ export default function ProductCard({ product }: ProductCardProps) {
               </div>
 
               {/* Botón */}
-              <button className="w-full flex items-center justify-center gap-2 bg-[#1e3a8a] hover:bg-[#1e40af] text-white font-semibold py-2.5 rounded-xl transition-all duration-200 text-sm hover:shadow-lg hover:shadow-blue-900/20">
-                <ShoppingCart className="w-4 h-4" />
+              <button
+                className="w-full flex items-center justify-center gap-2 text-white font-black uppercase tracking-widest py-3 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-blue-900/20 hover:-translate-y-0.5"
+                style={{
+                  background: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)',
+                  fontSize: '11px',
+                  letterSpacing: '0.1em',
+                }}
+              >
+                <ShoppingCart className="w-3.5 h-3.5" />
                 Agregar al carrito
               </button>
             </>
           ) : (
             <button
               disabled
-              className="w-full bg-slate-100 text-slate-400 font-semibold py-2.5 rounded-xl text-sm cursor-not-allowed mt-6"
+              className="w-full bg-slate-100 text-slate-400 font-bold uppercase tracking-widest py-3 rounded-full text-xs cursor-not-allowed mt-6"
+              style={{ letterSpacing: '0.1em' }}
             >
               Próximamente
             </button>

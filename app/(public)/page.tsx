@@ -65,10 +65,10 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <Link href="/contacto" className="inline-flex items-center gap-2 bg-[#d4a574] hover:bg-[#c89563] text-white font-bold uppercase tracking-widest px-8 py-4 transition-all hover:shadow-[0_8px_30px_-4px_rgba(212,165,116,0.5)] hover:-translate-y-0.5 text-sm" style={{ borderRadius: '9999px' }}>
+                <Link href="/contacto" className="inline-flex items-center gap-2 text-white font-black uppercase tracking-widest transition-all hover:shadow-[0_8px_30px_-4px_rgba(212,165,116,0.5)] hover:-translate-y-0.5" style={{ background: 'linear-gradient(135deg, #d4a574 0%, #c89563 100%)', borderRadius: '9999px', padding: '14px 32px', fontSize: '13px', letterSpacing: '0.1em' }}>
                   Contáctanos
                 </Link>
-                <Link href="/proyectos" className="inline-flex items-center gap-2 bg-transparent hover:bg-white text-white hover:text-slate-900 font-bold uppercase tracking-widest px-8 py-4 transition-all text-sm" style={{ border: '2px solid rgba(255,255,255,0.4)', borderRadius: '9999px' }}>
+                <Link href="/proyectos" className="inline-flex items-center gap-2 bg-transparent hover:bg-white text-white hover:text-slate-900 font-black uppercase tracking-widest transition-all hover:-translate-y-0.5" style={{ border: '2px solid rgba(255,255,255,0.6)', borderRadius: '9999px', padding: '14px 32px', fontSize: '13px', letterSpacing: '0.1em' }}>
                   Ver Proyectos <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -161,7 +161,17 @@ export default function HomePage() {
           <div className="flex gap-3 mb-14 flex-wrap justify-center">
             {filters.map((f) => (
               <button key={f} onClick={() => setActiveFilter(f)}
-                className={`px-7 py-3 rounded-full font-semibold text-sm transition-all ${activeFilter === f ? 'bg-[#d4a574] text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                className="font-black uppercase tracking-widest transition-all hover:-translate-y-0.5"
+                style={{
+                  fontSize: '11px',
+                  letterSpacing: '0.1em',
+                  padding: '8px 20px',
+                  borderRadius: '9999px',
+                  border: activeFilter === f ? '2px solid #d4a574' : '2px solid #cbd5e1',
+                  background: activeFilter === f ? 'linear-gradient(135deg, #d4a574 0%, #c89563 100%)' : 'transparent',
+                  color: activeFilter === f ? '#fff' : '#64748b',
+                  boxShadow: activeFilter === f ? '0 4px 14px rgba(212,165,116,0.3)' : 'none',
+                }}>
                 {f}
               </button>
             ))}
@@ -195,7 +205,7 @@ export default function HomePage() {
                           <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                           <span className="text-emerald-600 text-xs font-semibold">En Stock · {producto.stock} un</span>
                         </div>
-                        <button className="w-full bg-[#1e3a8a] hover:bg-[#1e40af] text-white font-semibold py-3 rounded-xl transition-all text-sm hover:shadow-lg hover:shadow-blue-900/20">
+                        <button className="w-full text-white font-black uppercase tracking-widest py-3 rounded-full transition-all text-xs hover:shadow-lg hover:shadow-blue-900/20 hover:-translate-y-0.5" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)', letterSpacing: '0.1em' }}>
                           Agregar al carrito
                         </button>
                       </>
@@ -233,10 +243,10 @@ export default function HomePage() {
             Contáctanos y recibe una cotización personalizada para tu proyecto.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/quote" className="inline-flex items-center gap-2 bg-[#d4a574] hover:bg-[#c89563] text-white font-bold uppercase tracking-widest px-10 py-4 transition-all hover:shadow-[0_8px_30px_-4px_rgba(212,165,116,0.4)] hover:-translate-y-0.5 text-sm" style={{ borderRadius: '9999px' }}>
+            <Link href="/quote" className="inline-flex items-center gap-2 text-white font-black uppercase tracking-widest transition-all hover:shadow-[0_8px_30px_-4px_rgba(212,165,116,0.4)] hover:-translate-y-0.5" style={{ background: 'linear-gradient(135deg, #d4a574 0%, #c89563 100%)', borderRadius: '9999px', padding: '14px 36px', fontSize: '13px', letterSpacing: '0.1em' }}>
               Solicitar Cotización
             </Link>
-            <Link href="/contacto" className="inline-flex items-center gap-2 bg-transparent hover:bg-white text-white hover:text-slate-950 font-bold uppercase tracking-widest px-10 py-4 transition-all hover:-translate-y-0.5 text-sm" style={{ border: '2px solid rgba(255,255,255,0.5)', borderRadius: '9999px' }}>
+            <Link href="/contacto" className="inline-flex items-center gap-2 bg-transparent hover:bg-white text-white hover:text-slate-950 font-black uppercase tracking-widest transition-all hover:-translate-y-0.5" style={{ border: '2px solid rgba(255,255,255,0.5)', borderRadius: '9999px', padding: '14px 36px', fontSize: '13px', letterSpacing: '0.1em' }}>
               Contactar directamente
             </Link>
           </div>
