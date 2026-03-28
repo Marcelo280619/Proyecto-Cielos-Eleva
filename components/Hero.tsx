@@ -1,41 +1,88 @@
 import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import './Hero.css';
+
+const stats = [
+  { num: '+500', label: 'Proyectos realizados' },
+  { num: '+10',  label: 'Años de experiencia'  },
+  { num: '100%', label: 'Clientes satisfechos' },
+];
 
 export default function Hero() {
   return (
     <section className="hero">
-      <div className="hero-overlay"></div>
-      
-      <div className="hero-content">
-        <h1 className="hero-title">
-          SOLUCIONES EN CONSTRUCCIÓN<br />
-          Y CIELOS AMERICANOS
-        </h1>
-        
-        <p className="hero-subtitle">
-          Expertos en instalación y venta de cielos falsos,<br />
-          revestimientos y pisos para todo tipo de proyectos.
-        </p>
-        
-        <div className="hero-buttons">
-          <a href="/contacto" className="btn btn-primary">
-            Contáctanos
-          </a>
-          <a href="/proyectos" className="btn btn-secondary">
-            Ver Proyectos
-          </a>
+      <div className="hero-overlay" />
+
+      <div className="hero-inner">
+
+        {/* ── Left: text content ── */}
+        <div className="hero-left">
+
+          {/* Badge */}
+          <div className="hero-badge">
+            {/* Star icon inline SVG — no external dep */}
+            <svg className="hero-badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+            <span className="hero-badge-text">Expertos en cielos y revestimientos</span>
+          </div>
+
+          {/* Headline */}
+          <h1 className="hero-title">
+            SOLUCIONES EN<br />
+            CONSTRUCCIÓN<br />
+            <span className="hero-title-accent">Y CIELOS</span>
+          </h1>
+
+          {/* Subtitle */}
+          <p className="hero-subtitle">
+            Expertos en instalación y venta de cielos falsos,
+            revestimientos y pisos para todo tipo de proyectos.
+          </p>
+
+          {/* CTA buttons */}
+          <div className="hero-buttons">
+            <Link href="/contacto" className="hero-btn hero-btn--gold">
+              Contáctanos
+            </Link>
+            <Link href="/proyectos" className="hero-btn hero-btn--outline">
+              Ver Proyectos
+              {/* Chevron */}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </Link>
+          </div>
+
+          {/* Stats */}
+          <div className="hero-stats">
+            {stats.map((s) => (
+              <div key={s.label}>
+                <div className="hero-stat__num">{s.num}</div>
+                <div className="hero-stat__label">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
         </div>
-      </div>
-      
-      {/* Wave Transition */}
-      <div className="hero-wave">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path 
-            d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z" 
-            fill="#FFFFFF"
+
+        {/* ── Right: logo (smaller, per client) ── */}
+        <div className="hero-right" aria-hidden="true">
+          <Image
+            src="/img/publiclogo.png"
+            alt="ELEVA"
+            fill
+            className="hero-logo-img"
+            style={{ objectFit: 'contain' }}
+            priority
           />
-        </svg>
+        </div>
+
       </div>
+
+      {/* Bottom accent */}
+      <div className="hero-accent" />
     </section>
   );
 }

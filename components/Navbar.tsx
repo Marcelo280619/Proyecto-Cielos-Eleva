@@ -3,153 +3,138 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, FileText, User, LogIn } from 'lucide-react';
 
-const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const navLinks = [
+  { label: 'Inicio',     href: '/'          },
+  { label: 'Servicios',  href: '/servicios' },
+  { label: 'Proyectos',  href: '/proyectos' },
+  { label: 'Productos',  href: '/productos' },
+  { label: 'Contacto',   href: '/contacto'  },
+];
+
+export default function Navbar() {
+  const [open, setOpen]       = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navLinks = [
-    { href: '/', label: 'Inicio' },
-    { href: '#servicios', label: 'Servicios' },
-    { href: '#proyectos', label: 'Proyectos' },
-    { href: '/productos', label: 'Productos' },
-    { href: '#contacto', label: 'Contacto' },
-  ];
-
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setIsMobileMenuOpen(false);
-      }
-    }
-  };
+  const navBg = scrolled
+    ? 'bg-slate-950/95 backdrop-blur-md shadow-lg shadow-black/20'
+    : 'bg-transparent';
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white/98 shadow-sm shadow-slate-200/80 backdrop-blur-md py-2.5'
-          : 'bg-white/95 backdrop-blur-sm py-3.5'
-      }`}
-    >
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 40px' }}>
-        <div className="flex items-center justify-between">
+    <>
+      <header
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${navBg}`}
+        style={{ borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : 'none' }}
+      >
+        <div className="max-w-[1280px] mx-auto px-8 max-sm:px-4 h-16 flex items-center gap-6">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0">
-            <div className="relative w-28 h-11 sm:w-32 sm:h-12">
-              <Image
-                src="/img/publiclogo.png"
-                alt="Eleva"
-                fill
-                className="object-contain"
-                priority
-              />
+          <Link href="/" className="flex items-center gap-3 shrink-0">
+            <div className="relative w-9 h-9">
+              <Image src="/img/publiclogo.png" alt="ELEVA" fill className="object-contain" />
             </div>
+            <span
+              className="text-white font-black text-base tracking-wide uppercase hidden sm:block"
+              style={{ letterSpacing: '0.08em' }}
+            >
+              Cielos Eleva SpA
+            </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <ul className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={(e) => handleSmoothScroll(e, link.href)}
-                  className="px-4 py-2 text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors rounded-lg hover:bg-slate-100"
-                >
-                  {link.label}
-                </Link>
-              </li>
+          {/* Nav links — desktop center */}
+          <nav className="hidden lg:flex items-center gap-1 mx-auto">
+            {navLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="text-slate-300 hover:text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors hover:bg-white/8"
+              >
+                {l.label}
+              </Link>
             ))}
-          </ul>
+          </nav>
 
-          {/* CTA Button mejorado */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Right actions */}
+          <div className="hidden lg:flex items-center gap-3 ml-auto shrink-0">
+
+            {/* Registrarse */}
+            <Link
+              href="/register"
+              className="flex items-center gap-1.5 text-slate-300 hover:text-white text-sm font-semibold px-3 py-2 rounded-lg transition-colors hover:bg-white/8"
+            >
+              <User className="w-4 h-4" />
+              Registrarse
+            </Link>
+
+            {/* Divider */}
+            <span className="text-slate-600 text-lg select-none">|</span>
+
+            {/* Inicio sesión */}
+            <Link
+              href="/login"
+              className="flex items-center gap-1.5 text-slate-300 hover:text-white text-sm font-semibold px-3 py-2 rounded-lg transition-colors hover:bg-white/8"
+            >
+              <LogIn className="w-4 h-4" />
+              Inicio sesión
+            </Link>
+
+            {/* Cotizar CTA */}
             <Link
               href="/quote"
-              style={{
-                background: 'linear-gradient(135deg, #d4a574 0%, #c89563 100%)',
-                padding: '10px 24px',
-                borderRadius: '12px',
-                color: 'white',
-                fontWeight: '700',
-                fontSize: '14px',
-                letterSpacing: '0.02em',
-                boxShadow: '0 4px 14px rgba(212,165,116,0.4)',
-                transition: 'all 0.2s ease',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(212,165,116,0.5)';
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 14px rgba(212,165,116,0.4)';
-              }}
+              className="flex items-center gap-2 text-white font-black text-xs uppercase tracking-widest px-5 py-2.5 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/25 hover:-translate-y-0.5 ml-2"
+              style={{ background: 'linear-gradient(135deg, #d4a574 0%, #c89563 100%)', letterSpacing: '0.1em' }}
             >
-              <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
+              <FileText className="w-3.5 h-3.5" />
               Cotizar ahora
             </Link>
           </div>
 
-          {/* Mobile toggle */}
+          {/* Mobile burger */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
-            aria-label="Toggle menu"
+            className="lg:hidden ml-auto text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
+            onClick={() => setOpen(!open)}
+            aria-label="Menú"
           >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
+
         </div>
+      </header>
 
-        {/* Mobile menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-3 pb-4 border-t border-slate-100 pt-4">
-            <ul className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={(e) => {
-                      handleSmoothScroll(e, link.href);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="block px-4 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 font-medium rounded-xl transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-              <li className="mt-2">
-                <Link
-                  href="/quote"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block text-center px-6 py-3 bg-[#d4a574] text-white rounded-xl font-bold hover:bg-[#c89563] transition-colors text-sm"
-                >
-                  Cotizar ahora
-                </Link>
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
-    </nav>
+      {/* Mobile menu */}
+      {open && (
+        <div className="fixed inset-0 z-40 bg-slate-950/98 backdrop-blur-md flex flex-col pt-16">
+          <nav className="flex flex-col gap-1 p-6">
+            {navLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="text-slate-200 hover:text-white text-lg font-semibold px-4 py-3 rounded-xl hover:bg-white/8 transition-colors"
+              >
+                {l.label}
+              </Link>
+            ))}
+            <div className="border-t border-white/10 my-4" />
+            <Link href="/register" onClick={() => setOpen(false)} className="flex items-center gap-2 text-slate-300 hover:text-white text-base font-semibold px-4 py-3 rounded-xl hover:bg-white/8 transition-colors">
+              <User className="w-4 h-4" /> Registrarse
+            </Link>
+            <Link href="/login" onClick={() => setOpen(false)} className="flex items-center gap-2 text-slate-300 hover:text-white text-base font-semibold px-4 py-3 rounded-xl hover:bg-white/8 transition-colors">
+              <LogIn className="w-4 h-4" /> Inicio sesión
+            </Link>
+            <Link href="/quote" onClick={() => setOpen(false)} className="btn btn-gold justify-center mt-4">
+              <FileText className="w-4 h-4" /> Cotizar ahora
+            </Link>
+          </nav>
+        </div>
+      )}
+    </>
   );
-};
-
-export default Navbar;
+}
